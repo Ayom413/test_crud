@@ -3,6 +3,9 @@
 namespace app\models;
 
 use Yii;
+use yii\db\ActiveRecord;
+use yii\web\IdentityInterface;
+use yii\behaviors\TimestampBehavior;
 
 /**
  * This is the model class for table "project".
@@ -50,13 +53,28 @@ class Project extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'user_id' => 'User ID',
-            'name' => 'Name',
-            'cost' => 'Cost',
-            'start_date' => 'Start Date',
-            'end_date' => 'End Date',
+            'user_id' => 'ID Юзера',
+            'name' => 'Название',
+            'cost' => 'Цена',
+            'start_date' => 'Дата начала разработки',
+            'end_date' => 'Дедлайн',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
+        ];
+    }
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::className(),
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
+                ],
+                'value' => function () {
+                    return date('Y-m-d H:i:s');
+                },
+            ],
         ];
     }
 

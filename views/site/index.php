@@ -1,53 +1,26 @@
 <?php
 
-/** @var yii\web\View $this */
+use yii\helpers\Html;
+use yii\helpers\Url;
 
-$this->title = 'My Yii Application';
+$this->title = 'Главная';
 ?>
+
 <div class="site-index">
+    <h1><?= Html::encode($this->title) ?></h1>
 
-    <div class="jumbotron text-center bg-transparent">
-        <h1 class="display-4">Congratulations!</h1>
+    <?php if (!Yii::$app->user->isGuest): ?>
+        <p>Здравствуйте, <?= Html::encode(Yii::$app->user->identity->login) ?>!</p>
 
-        <p class="lead">You have successfully created your Yii-powered application.</p>
-
-        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
-    </div>
-
-    <div class="body-content">
-
-        <div class="row">
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-outline-secondary" href="http://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-outline-secondary" href="http://www.yiiframework.com/forum/">Yii Forum &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-outline-secondary" href="http://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
-            </div>
-        </div>
-
-    </div>
+        <p>
+            <?= Html::a('Список пользователей', Url::to(['user/index']), ['class' => 'btn btn-primary']) ?>
+            <?= Html::a('Список проектов', Url::to(['project/index']), ['class' => 'btn btn-primary']) ?>
+            <?= Html::a('Выйти', Url::to(['site/logout']), [
+                'class' => 'btn btn-danger',
+                'data-method' => 'post', 
+            ]) ?>
+        </p>
+    <?php else: ?>
+        <p>Пожалуйста, <a href="<?= Url::to(['site/login']) ?>">войдите в систему</a>.</p>
+    <?php endif; ?>
 </div>
