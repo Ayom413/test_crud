@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use yii;
 use app\models\User;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
@@ -113,11 +114,21 @@ class UserController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+    
+        $model->password = '';
+    
+        if ($this->request->isPost && $model->load($this->request->post())) {
+            if (!empty($model->password)) {
+                $model->password = Yii::$app->security->generatePasswordHash($model->password);
+            } else {
+                unset($model->password);
+            }
+    
+            if ($model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
-
+    
         return $this->render('update', [
             'model' => $model,
         ]);
