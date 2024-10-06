@@ -11,7 +11,7 @@ use app\models\User;
 /** @var yii\web\View $this */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Projects';
+$this->title = 'Проекты';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <<div class="project-index">
@@ -25,7 +25,6 @@ $this->params['breadcrumbs'][] = $this->title;
 <?= GridView::widget([
     'dataProvider' => $dataProvider,
     'columns' => [
-        ['class' => 'yii\grid\SerialColumn'],
 
         'id',
         [
@@ -37,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'name',
         'cost',
         'start_date',
-        //'end_date',
+        'end_date',
         //'created_at',
         //'updated_at',
         [

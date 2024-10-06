@@ -53,7 +53,7 @@ class Project extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'user_id' => 'ID Юзера',
+            'user_id' => 'Пользователь',
             'name' => 'Название',
             'cost' => 'Цена',
             'start_date' => 'Дата начала разработки',

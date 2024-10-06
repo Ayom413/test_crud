@@ -4,7 +4,6 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
 use app\models\User;
-use yii\jui\DatePicker;
 
 /** @var yii\web\View $this */
 /** @var app\models\Project $model */
@@ -25,17 +24,9 @@ use yii\jui\DatePicker;
 
     <?= $form->field($model, 'cost')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'start_date')->widget(DatePicker::className(), [
-        'language' => 'ru', 
-        'dateFormat' => 'yyyy-MM-dd',  
-        'options' => ['class' => 'form-control'], 
-    ]) ?>
+    <?= $form->field($model, 'start_date')->textInput()->hint('Введите дату в формате ГГГГ-ММ-ДД') ?>
 
-    <?= $form->field($model, 'end_date')->widget(DatePicker::className(), [
-        'language' => 'ru',
-        'dateFormat' => 'yyyy-MM-dd',
-        'options' => ['class' => 'form-control'],
-    ]) ?>
+    <?= $form->field($model, 'end_date')->textInput()->hint('Введите дату в формате ГГГГ-ММ-ДД') ?>
 
 
     <div class="form-group">

@@ -20,23 +20,30 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => 'Вы уверены что хоитте удалить данный проект?',
                 'method' => 'post',
             ],
         ]) ?>
     </p>
 
     <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            'user_id',
-            'name',
-            'cost',
-            'start_date',
-            'end_date',
-            'created_at',
-            'updated_at',
+    'model' => $model,
+    'attributes' => [
+        'id',
+        [
+            'attribute' => 'user_id',
+            'label' => 'Пользователь',
+            'value' => function($model) {
+                return $model->user->fio . ' (' . $model->user->login . ')';
+
+            },
+        ],
+        'name',
+        'cost',
+        'start_date',
+        'end_date',
+        'created_at',
+        'updated_at',
         ],
     ]) ?>
 
